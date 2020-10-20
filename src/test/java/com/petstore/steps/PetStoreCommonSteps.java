@@ -6,8 +6,6 @@
 
 package com.petstore.steps;
 
-import static com.petstore.base.TestBase.getProperty;
-
 import java.util.List;
 
 import org.testng.Assert;
@@ -16,9 +14,9 @@ import com.petstore.base.TestBase;
 import com.petstore.utility.PropertyManager;
 import com.petstore.utility.Utility;
 
-import io.cucumber.datatable.DataTable;
-import io.cucumber.java.en.Given;
-import io.cucumber.java.en.When;
+import cucumber.api.DataTable;
+import cucumber.api.java.en.Given;
+import cucumber.api.java.en.When;
 
 public class PetStoreCommonSteps extends TestBase {
 

@@ -18,11 +18,11 @@ import org.testng.Assert;
 import com.google.common.base.Charsets;
 import com.google.common.io.Resources;
 
-import io.cucumber.datatable.DataTable;
-import io.restassured.RestAssured;
+import cucumber.api.DataTable;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import net.serenitybdd.rest.SerenityRest;
 
 public class Utility {
 
@@ -82,11 +82,11 @@ public class Utility {
 	 */
 	public static Map<String, String> getMapFromDataTableUsingKey(DataTable table, String key) {
 		Map<String, String> map = new HashMap<String, String>();
-		for (int i = 0; i < table.asLists().size(); i++) {
-			if (table.asLists().get(i).get(0).equalsIgnoreCase(key)) {
-				map.put(table.asLists().get(i).get(1),
-						getProperty(table.asLists().get(i).get(2)) == null ? table.asLists().get(i).get(2)
-								: getProperty(table.asLists().get(i).get(2)));
+		for (int i = 0; i < table.raw().size(); i++) {
+			if (table.raw().get(i).get(0).equalsIgnoreCase(key)) {
+				map.put(table.raw().get(i).get(1),
+						getProperty(table.raw().get(i).get(2)) == null ? table.raw().get(i).get(2)
+								: getProperty(table.raw().get(i).get(2)));
 			}
 		}
 		return map;
@@ -99,7 +99,7 @@ public class Utility {
  */
 	public static Response buildRequest(DataTable table, String methodType) {
 
-		RequestSpecification spec = RestAssured.given().contentType(ContentType.JSON)
+		RequestSpecification spec = SerenityRest.given().contentType(ContentType.JSON)
 				.queryParams(getMapFromDataTableUsingKey(table, "query"))
 				.pathParams(getMapFromDataTableUsingKey(table, "path"));
 		switch (methodType.toLowerCase()) {
